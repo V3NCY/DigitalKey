@@ -1,0 +1,6 @@
+﻿/* wwwroot/css/site.css */
+.container .custom-input {
+    border: 2px solid #ced4da;
+    background-color: transparent;
+    opacity: 0.5;
+}

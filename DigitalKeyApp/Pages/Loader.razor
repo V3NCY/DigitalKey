@@ -1,0 +1,37 @@
+﻿<!-- Loader.razor -->
+<div class="loader-container">
+    @if (isLoading)
+    {
+        <div class="loader">
+            <progress max="100" value="@percentage" class="loading-progress"></progress>
+        </div>
+            <div>@percentage %</div>
+    }
+    else
+    {
+        <div class="paired @(isPaired ? "paired-visible" : "")">
+            <i class="fas fa-check-circle"></i>
+            Paired
+        </div>
+    }
+</div>
+
+@code {
+    private bool isLoading = true;
+    private bool isPaired = false;
+    private int percentage = 0;
+
+    public async Task SimulateLoadingAndPairing()
+    {
+        for (int i = 1; i <= 100; i++)
+        {
+            percentage = i;
+            StateHasChanged(); // Update the UI with the new percentage value
+            await Task.Delay(50); // Simulate loading delay
+        }
+
+        isLoading = false;
+        isPaired = true;
+        StateHasChanged(); // Notify the component to re-render with updated values
+    }
+}
