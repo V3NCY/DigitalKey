@@ -3,14 +3,16 @@
     @if (isLoading)
     {
         <div class="loader">
-            <progress max="100" value="@percentage" class="loading-progress"></progress>
+            <div class="progress progress-outline">
+                <div class="progress-bar bg-success" role="progressbar" style="width: @percentage%"></div>
+            </div>
+            <div>@percentage % Loaded</div>
         </div>
-            <div>@percentage %</div>
     }
     else
     {
         <div class="paired @(isPaired ? "paired-visible" : "")">
-            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-check-circle" width="60"></i>
             Paired
         </div>
     }
@@ -20,6 +22,10 @@
     private bool isLoading = true;
     private bool isPaired = false;
     private int percentage = 0;
+
+    // Inject NavigationManager to enable navigation to other pages
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
 
     public async Task SimulateLoadingAndPairing()
     {
@@ -33,5 +39,9 @@
         isLoading = false;
         isPaired = true;
         StateHasChanged(); // Notify the component to re-render with updated values
+
+        // After 3-4 seconds, redirect to the "MainP" page
+        await Task.Delay(3000); // Adjust the delay time as needed (3000ms = 3 seconds)
+        NavigationManager.NavigateTo("/MainP");
     }
 }

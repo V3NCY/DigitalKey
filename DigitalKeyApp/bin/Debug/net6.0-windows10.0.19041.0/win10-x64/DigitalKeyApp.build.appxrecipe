@@ -871,6 +871,9 @@
     <AppxPackagedFile Include="C:\Users\orak\Desktop\DigitalKeyApp\DigitalKeyApp\wwwroot\background.jpg">
       <PackagePath>wwwroot\background.jpg</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\orak\Desktop\DigitalKeyApp\DigitalKeyApp\wwwroot\checked.png">
+      <PackagePath>wwwroot\checked.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\orak\Desktop\DigitalKeyApp\DigitalKeyApp\wwwroot\css\app.css">
       <PackagePath>wwwroot\css\app.css</PackagePath>
     </AppxPackagedFile>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7DEHqB/XiVn/XhIsxB0WZ7F2AF8UtX9tetO8jw4exa0=",
+  "Hash": "m755pwbdMzcYunT+j65t6HylM9fxqujjhokfrK3BCC0=",
   "Source": "DigitalKeyApp",
   "BasePath": "/",
   "Mode": "Root",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\background.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\orak\\Desktop\\DigitalKeyApp\\DigitalKeyApp\\wwwroot\\checked.png",
+      "SourceId": "DigitalKeyApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\orak\\Desktop\\DigitalKeyApp\\DigitalKeyApp\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "checked.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\checked.png"
     },
     {
       "Identity": "C:\\Users\\orak\\Desktop\\DigitalKeyApp\\DigitalKeyApp\\wwwroot\\css\\app.css",

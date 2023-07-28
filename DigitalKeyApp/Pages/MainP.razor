@@ -1,4 +1,4 @@
-﻿@page "/LoggedIn"
+﻿@page "/MainP"
 @inject NavigationManager NavigationManager
 
 <style>
@@ -39,7 +39,7 @@
         width: 100%;
     }
 
-    .button-center{
+    .button-center {
         text-align: center;
     }
     /* YourComponent.razor.css (or any other custom CSS file) */
@@ -51,54 +51,8 @@
         padding: 8px 16px; /* Optional: Add padding to adjust button size */
     }
 
-    .button-bottom-right{
+    .button-bottom-right {
         text-align: right;
-    }
-
-    .loader-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 200px; /* Adjust the height as needed */
-    }
-
-    .loader {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 24px;
-        color: green;
-        opacity: 1;
-        transition: opacity 0.5s, transform 0.5s;
-    }
-
-    .progress {
-        width: 100%;
-        height: 40px; /* Adjust the height of the progress bar */
-        background-color: transparent;
-        border: 2px solid #ced4da; /* Set the border color for the progress bar */
-        border-radius: 10px; /* Adjust the border radius to make it outlined */
-        overflow: hidden; /* Hide the default progress bar background */
-    }
-
-    .progress-bar {
-        transition: width 0.5s; /* Set the transition effect for the progress bar width change */
-    }
-
-    .paired {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 24px;
-        color: green;
-        opacity: 0;
-        transform: scale(0);
-        transition: opacity 0.5s, transform 0.5s;
-    }
-
-    .paired-visible {
-        opacity: 1;
-        transform: scale(1);
     }
 </style>
 
@@ -114,9 +68,7 @@
         </div>
     </div>
 </div>
-<div class="button-center">
-    <button @onclick="PairDevices" class="btn outlined-button">Pair Devices</button>
-</div>
+
 
 <div class="button-bottom-right">
     <button @onclick="GoBack" class="btn outlined-button">Go Back</button>
@@ -146,17 +98,3 @@
         NavigationManager.NavigateTo("/");
     }
 }
-
-
-<Loader @ref="loaderRef" />
-
-@code {
-    private Loader loaderRef;
-
-    private async Task PairDevices()
-    {
-        await loaderRef.SimulateLoadingAndPairing();
-    }
-}
-
-

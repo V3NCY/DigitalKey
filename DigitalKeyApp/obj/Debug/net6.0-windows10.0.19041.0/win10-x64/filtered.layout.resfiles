@@ -46,6 +46,7 @@ AboutAssets.txt
 Shared\MainLayout.razor.css
 Shared\NavMenu.razor.css
 wwwroot\background.jpg
+wwwroot\checked.png
 wwwroot\css\app.css
 wwwroot\css\bootstrap\bootstrap.min.css
 wwwroot\css\bootstrap\bootstrap.min.css.map
