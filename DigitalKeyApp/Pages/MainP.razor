@@ -54,7 +54,38 @@
     .button-bottom-right {
         text-align: right;
     }
-</style>
+
+    .outlined-button {
+        background-color: transparent;
+        border: 2px solid #ced4da; /* Replace #007bff with the desired border color */
+        color: #ced4da; /* Replace #007bff with the desired text color */
+        border-radius: 20px; /* Optional: Add border radius for rounded corners */
+        padding: 8px 16px; /* Optional: Add padding to adjust button size */
+        margin: 5px; /* Optional: Add some spacing between the buttons */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .locking-message,
+    .unlocking-message {
+        color: #fff;
+        font-size: 24px;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    /* Styles for success messages */
+    .success-message {
+        color: green;
+        font-size: 24px;
+        text-align: center;
+        margin: 10px 0;
+    }
+    </style>
 
 <h3>ROOM:</h3>
 <h1>202</h1>
@@ -69,6 +100,34 @@
     </div>
 </div>
 
+<div class="button-container">
+    <button @onclick="Lock" class="btn outlined-button">Lock</button>
+    <button @onclick="Unlock" class="btn outlined-button">Unlock</button>
+</div>
+
+<!-- Display the locking status message -->
+@if (isLoadingLock)
+{
+    <p class="locking-message">Locking...</p>
+}
+
+<!-- Display the unlocking status message -->
+@if (isLoadingUnlock)
+{
+    <p class="unlocking-message">Unlocking...</p>
+}
+
+<!-- Display the success message for locking -->
+@if (isLocked)
+{
+    <p class="success-message">You have successfully locked the hotel room door!</p>
+}
+
+<!-- Display the success message for unlocking -->
+@if (isUnlocked)
+{
+    <p class="success-message">You have successfully unlocked the hotel room door!</p>
+}
 
 <div class="button-bottom-right">
     <button @onclick="GoBack" class="btn outlined-button">Go Back</button>
@@ -90,6 +149,12 @@
 </div>
 
 @code {
+    private bool isLocked = false;
+    private bool isLoadingLock = false;
+    private bool isUnlocked = false;
+    private bool isLoadingUnlock = false;
+    private bool showLockSuccess = false;
+    private bool showUnlockSuccess = false;
 
     private void GoBack()
     {
@@ -97,4 +162,46 @@
         // Navigate back to the previous page ("/" page)
         NavigationManager.NavigateTo("/");
     }
+
+    private async Task Lock()
+    {
+        // Show the "Locking..." message
+        isLoadingLock = true;
+
+        // Simulate the locking process with a delay (1-2 seconds)
+        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
+
+        // Lock the device by setting isLocked to true
+        isLocked = true;
+        isLoadingLock = false; // Hide the "Locking..." message
+
+        // Show the success message for locking
+        showLockSuccess = true;
+
+        // Hide the success message after a short delay (2 seconds)
+        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
+        showLockSuccess = false;
+    }
+
+    private async Task Unlock()
+    {
+        // Show the "Unlocking..." message
+        isLoadingUnlock = true;
+
+        // Simulate the unlocking process with a delay (1-2 seconds)
+        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
+
+        // Unlock the device by setting isUnlocked to true
+        isUnlocked = true;
+        isLoadingUnlock = false; // Hide the "Unlocking..." message
+
+        // Show the success message for unlocking
+        showUnlockSuccess = true;
+
+        // Hide the success message after a short delay (2 seconds)
+        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
+        showUnlockSuccess = false;
+    }
 }
+
+

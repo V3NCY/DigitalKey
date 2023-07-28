@@ -2,6 +2,7 @@
 <div class="loader-container">
     @if (isLoading)
     {
+
         <div class="loader">
             <div class="progress progress-outline">
                 <div class="progress-bar bg-success" role="progressbar" style="width: @percentage%"></div>
@@ -41,7 +42,7 @@
         StateHasChanged(); // Notify the component to re-render with updated values
 
         // After 3-4 seconds, redirect to the "MainP" page
-        await Task.Delay(3000); // Adjust the delay time as needed (3000ms = 3 seconds)
+        await Task.Delay(2000); // Adjust the delay time as needed (3000ms = 3 seconds)
         NavigationManager.NavigateTo("/MainP");
     }
 }
