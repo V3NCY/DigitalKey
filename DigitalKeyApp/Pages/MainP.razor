@@ -100,6 +100,7 @@
     </div>
 </div>
 
+<!-- Display the "Lock" and "Unlock" buttons -->
 <div class="button-container">
     <button @onclick="Lock" class="btn outlined-button">Lock</button>
     <button @onclick="Unlock" class="btn outlined-button">Unlock</button>
@@ -118,17 +119,16 @@
 }
 
 <!-- Display the success message for locking -->
-@if (isLocked)
+@if (showLockSuccess)
 {
     <p class="success-message">You have successfully locked the hotel room door!</p>
 }
 
 <!-- Display the success message for unlocking -->
-@if (isUnlocked)
+@if (showUnlockSuccess)
 {
     <p class="success-message">You have successfully unlocked the hotel room door!</p>
 }
-
 <div class="button-bottom-right">
     <button @onclick="GoBack" class="btn outlined-button">Go Back</button>
 </div>
@@ -165,6 +165,9 @@
 
     private async Task Lock()
     {
+        // Hide the unlock success message if shown
+        showUnlockSuccess = false;
+
         // Show the "Locking..." message
         isLoadingLock = true;
 
@@ -177,14 +180,13 @@
 
         // Show the success message for locking
         showLockSuccess = true;
-
-        // Hide the success message after a short delay (2 seconds)
-        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
-        showLockSuccess = false;
     }
 
     private async Task Unlock()
     {
+        // Hide the lock success message if shown
+        showLockSuccess = false;
+
         // Show the "Unlocking..." message
         isLoadingUnlock = true;
 
@@ -197,10 +199,6 @@
 
         // Show the success message for unlocking
         showUnlockSuccess = true;
-
-        // Hide the success message after a short delay (2 seconds)
-        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
-        showUnlockSuccess = false;
     }
 }
 
