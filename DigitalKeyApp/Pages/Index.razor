@@ -37,6 +37,12 @@
         width: 100%;
     }
 
+    .wrong-code-message {
+        color: red;
+        font-size: 24px;
+        text-align: center;
+        margin: 10px 0;
+    }
 
 </style>
 
@@ -90,61 +96,100 @@
     private string enteredCode = "";
     private bool checkedIn = true;
     private bool showWrongCodeMessage = false;
+    private bool showCheckedOutMessage = false;
+    private bool showCheckedInMessage = false;
     private bool hasUsedCode = false;
     private bool checkedOut = false;
 
     private void CheckCode()
     {
-        // For simplicity, we'll simulate the correct code as "1234"
-        if (enteredCode == "1234" && checkedIn && !hasUsedCode)
+        if (generatedCode == "checkedinuser" && checkedIn && !hasUsedCode)
         {
+            hasUsedCode = true;
             showWrongCodeMessage = false;
+            showCheckedOutMessage = false;
+            showCheckedInMessage = false;
             NavigationManager.NavigateTo("/MainP"); // Redirect to the MainP page (Lock and Unlock)
+        }
+        else if (generatedCode == "checkedinuser" && checkedIn && !hasUsedCode && !checkedOut)
+        {
+            NavigationManager.NavigateTo("/LoggedIn");
+            hasUsedCode = true; // Set hasUsedCode to true after successful login
         }
         else if (!checkedIn || hasUsedCode)
         {
-            // Display the "Wrong code! You have been checked out!" message in red
             showWrongCodeMessage = true;
-            enteredCode = ""; // Clear the entered code
+            showCheckedOutMessage = false;
+            showCheckedInMessage = false;
+            generatedCode = ""; // Clear the entered code
+        }
+        else if (checkedOut)
+        {
+            showCheckedOutMessage = true;
+            showWrongCodeMessage = false;
+            showCheckedInMessage = false;
+            generatedCode = ""; // Clear the entered code to prevent further submissions
         }
         else
         {
-            // User entered the wrong code or trying to re-enter after being checked out
-            showWrongCodeMessage = false; // Reset the error message flag
+            showWrongCodeMessage = true;
+            showCheckedOutMessage = false;
+            showCheckedInMessage = false;
+            generatedCode = ""; // Clear the entered code to prevent further submissions
         }
+    }
+
+    protected override void OnInitialized()
+    {
+        // Check for the query parameter on page load
+        var uri = new Uri(NavigationManager.Uri);
+        checkedOut = uri.Query.Contains("checkedOut=true");
     }
 
     private void SubmitCode()
     {
         // Process the generated code here
-        if (generatedCode == "checkedinuser" && checkedIn)
+        if (generatedCode == "checkedinuser" && checkedIn && !hasUsedCode && !checkedOut)
         {
             // Redirect to the "LoggedIn" page when the specific code is entered
             NavigationManager.NavigateTo("/LoggedIn");
-            hasUsedCode = false; // Reset hasUsedCode when successfully logged in
+            hasUsedCode = true; // Set hasUsedCode to true after successful login
         }
-        else if (checkedIn && !hasUsedCode)
+        else if (enteredCode == "1234" && checkedIn && !hasUsedCode)
         {
-            // Check the code and show the error message if needed
-            CheckCode();
+            // Redirect to the "MainP" page when the correct code is entered
+            NavigationManager.NavigateTo("/MainP");
         }
-        else if (checkedOut)
+        else if (!checkedIn || hasUsedCode)
         {
-            // If the user is checked out, show the checked-out message
+            // Display the "Wrong code! You have been checked out already!" message in red
             showWrongCodeMessage = true;
-            enteredCode = ""; // Clear the entered code to prevent further submissions
+            showCheckedOutMessage = false;
+            showCheckedInMessage = false;
+            enteredCode = ""; // Clear the entered code
         }
         else
         {
-            // If the user is checked out or has used the code, show the message without additional buttons
+            // User entered a different code, show the "Wrong code! Please try another..." message
             showWrongCodeMessage = true;
+            showCheckedOutMessage = false;
+            showCheckedInMessage = false;
             enteredCode = ""; // Clear the entered code to prevent further submissions
         }
     }
-}
-
+  }
 
 @if (showWrongCodeMessage)
 {
     <p class="wrong-code-message">Wrong code! You have been checked out already!</p>
+}
+
+@if (showCheckedOutMessage)
+{
+    <p class="checked-out-message">Wrong code! You have been checked out already!</p>
+}
+
+@if (showCheckedInMessage)
+{
+    <p class="checked-in-message">Wrong code! You are already checked in!</p>
 }

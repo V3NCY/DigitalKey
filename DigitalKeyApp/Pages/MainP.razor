@@ -123,6 +123,9 @@
     private bool checkedIn = true;
     private bool showLockingMessage = false;
     private bool showUnlockingMessage = false;
+    private bool CheckeOut = false;
+    private string generatedCode = "";
+    private bool hasUsedCode = false;
 
 
     private void GoBack()
@@ -150,9 +153,9 @@
 
     private void CheckOut()
     {
-        checkedIn = false;
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/?checkedOut=true");
     }
+    
 }
 
 @if (checkedIn)
