@@ -24,7 +24,6 @@
     private bool isPaired = false;
     private int percentage = 0;
 
-    // Inject NavigationManager to enable navigation to other pages
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
@@ -33,16 +32,14 @@
         for (int i = 1; i <= 100; i++)
         {
             percentage = i;
-            StateHasChanged(); // Update the UI with the new percentage value
-            await Task.Delay(50); // Simulate loading delay
+            StateHasChanged(); 
+            await Task.Delay(50); 
         }
 
         isLoading = false;
         isPaired = true;
-        StateHasChanged(); // Notify the component to re-render with updated values
-
-        // After 3-4 seconds, redirect to the "MainP" page
-        await Task.Delay(2000); // Adjust the delay time as needed (3000ms = 3 seconds)
+        StateHasChanged();
+        await Task.Delay(2000);
         NavigationManager.NavigateTo("/MainP");
     }
 }

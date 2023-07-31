@@ -42,13 +42,12 @@
     .button-center {
         text-align: center;
     }
-    /* YourComponent.razor.css (or any other custom CSS file) */
     .outlined-button {
         background-color: transparent;
-        border: 2px solid #ced4da; /* Replace #007bff with the desired border color */
-        color: #ced4da; /* Replace #007bff with the desired text color */
-        border-radius: 20px; /* Optional: Add border radius for rounded corners */
-        padding: 8px 16px; /* Optional: Add padding to adjust button size */
+        border: 2px solid #ced4da;
+        color: #ced4da; 
+        border-radius: 20px;
+        padding: 8px 16px; 
     }
 
     .button-bottom-right {
@@ -57,11 +56,11 @@
 
     .outlined-button {
         background-color: transparent;
-        border: 2px solid #ced4da; /* Replace #007bff with the desired border color */
-        color: #ced4da; /* Replace #007bff with the desired text color */
-        border-radius: 20px; /* Optional: Add border radius for rounded corners */
-        padding: 8px 16px; /* Optional: Add padding to adjust button size */
-        margin: 5px; /* Optional: Add some spacing between the buttons */
+        border: 2px solid #ced4da; 
+        color: #ced4da;
+        border-radius: 20px;
+        padding: 8px 16px;
+        margin: 5px; 
     }
 
     .button-container {
@@ -78,7 +77,6 @@
         margin: 10px 0;
     }
 
-    /* Styles for success messages */
     .success-message {
         color: green;
         font-size: 24px;
@@ -98,39 +96,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Display the "Lock" and "Unlock" buttons -->
-<div class="button-container">
-    <button @onclick="Lock" class="btn outlined-button">Lock</button>
-    <button @onclick="Unlock" class="btn outlined-button">Unlock</button>
-</div>
-
-<!-- Display the locking status message -->
-@if (isLoadingLock)
-{
-    <p class="locking-message">Locking...</p>
-}
-
-<!-- Display the unlocking status message -->
-@if (isLoadingUnlock)
-{
-    <p class="unlocking-message">Unlocking...</p>
-}
-
-<!-- Display the success message for locking -->
-@if (showLockSuccess)
-{
-    <p class="success-message">You have successfully locked the hotel room door!</p>
-}
-
-<!-- Display the success message for unlocking -->
-@if (showUnlockSuccess)
-{
-    <p class="success-message">You have successfully unlocked the hotel room door!</p>
-}
-<div class="button-bottom-right">
-    <button @onclick="GoBack" class="btn outlined-button">Go Back</button>
 </div>
 
 <div class="container">
@@ -155,52 +120,70 @@
     private bool isLoadingUnlock = false;
     private bool showLockSuccess = false;
     private bool showUnlockSuccess = false;
+    private bool checkedIn = true;
+    private bool showLockingMessage = false;
+    private bool showUnlockingMessage = false;
 
 
     private void GoBack()
     {
-        // Handle the "Go Back" button click here
-        // Navigate back to the previous page ("/" page)
         NavigationManager.NavigateTo("/");
     }
 
     private async Task Lock()
     {
-        // Hide the unlock success message if shown
-        showUnlockSuccess = false;
-
-        // Show the "Locking..." message
-        isLoadingLock = true;
-
-        // Simulate the locking process with a delay (1-2 seconds)
-        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
-
-        // Lock the device by setting isLocked to true
-        isLocked = true;
-        isLoadingLock = false; // Hide the "Locking..." message
-
-        // Show the success message for locking
+        showLockingMessage = true;
+        await Task.Delay(2000);
+        showLockingMessage = false;
         showLockSuccess = true;
+        showUnlockSuccess = false;
     }
 
     private async Task Unlock()
     {
-        // Hide the lock success message if shown
+        showUnlockingMessage = true;
+        await Task.Delay(2000);
+        showUnlockingMessage = false;
         showLockSuccess = false;
-
-        // Show the "Unlocking..." message
-        isLoadingUnlock = true;
-
-        // Simulate the unlocking process with a delay (1-2 seconds)
-        await Task.Delay(2000); // Adjust the delay time as needed (2000ms = 2 seconds)
-
-        // Unlock the device by setting isUnlocked to true
-        isUnlocked = true;
-        isLoadingUnlock = false; // Hide the "Unlocking..." message
-
-        // Show the success message for unlocking
         showUnlockSuccess = true;
+    }
+
+    private void CheckOut()
+    {
+        checkedIn = false;
+        NavigationManager.NavigateTo("/");
     }
 }
 
+@if (checkedIn)
+{
+    <div class="button-container">
+        <button @onclick="Lock" class="btn outlined-button">Lock</button>
+        <button @onclick="Unlock" class="btn outlined-button">Unlock</button>
+        <button @onclick="CheckOut" class="btn outlined-button">Check Out</button>
+    </div>
+    <div class="button-bottom-right">
+        <button @onclick="GoBack" class="btn outlined-button">Go Back</button>
+    </div>
+
+    @if (showLockingMessage)
+    {
+        <p class="locking-message">Locking...</p>
+    }
+
+    @if (showUnlockingMessage)
+    {
+        <p class="unlocking-message">Unlocking...</p>
+    }
+
+    @if (showLockSuccess)
+    {
+        <p class="success-message">You have successfully LOCKED the hotel room door!</p>
+    }
+
+    @if (showUnlockSuccess)
+    {
+        <p class="success-message">You have successfully UNLOCKED the hotel room door!</p>
+    }
+}
 

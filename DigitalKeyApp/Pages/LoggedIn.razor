@@ -42,13 +42,12 @@
     .button-center{
         text-align: center;
     }
-    /* YourComponent.razor.css (or any other custom CSS file) */
     .outlined-button {
         background-color: transparent;
-        border: 2px solid #ced4da; /* Replace #007bff with the desired border color */
-        color: #ced4da; /* Replace #007bff with the desired text color */
-        border-radius: 20px; /* Optional: Add border radius for rounded corners */
-        padding: 8px 16px; /* Optional: Add padding to adjust button size */
+        border: 2px solid #ced4da;
+        color: #ced4da;
+        border-radius: 20px; 
+        padding: 8px 16px; 
     }
 
     .button-bottom-right{
@@ -59,7 +58,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 200px; /* Adjust the height as needed */
+        height: 200px; 
     }
 
     .loader {
@@ -74,15 +73,15 @@
 
     .progress {
         width: 100%;
-        height: 40px; /* Adjust the height of the progress bar */
+        height: 40px; 
         background-color: transparent;
-        border: 2px solid #ced4da; /* Set the border color for the progress bar */
-        border-radius: 10px; /* Adjust the border radius to make it outlined */
-        overflow: hidden; /* Hide the default progress bar background */
+        border: 2px solid #ced4da;
+        border-radius: 10px; 
+        overflow: hidden;
     }
 
     .progress-bar {
-        transition: width 0.5s; /* Set the transition effect for the progress bar width change */
+        transition: width 0.5s; 
     }
 
     .paired {
@@ -141,8 +140,6 @@
 
     private void GoBack()
     {
-        // Handle the "Go Back" button click here
-        // Navigate back to the previous page ("/" page)
         NavigationManager.NavigateTo("/");
     }
 }
